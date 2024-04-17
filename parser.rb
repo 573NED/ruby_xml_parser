@@ -27,7 +27,15 @@ File.open(dm, 'r') do |file|
     when "Код документа удостоверяющего личность"
       documents << "#{data[4]};#{data[3]}"
     when "[Справочник стран]"
-      countries << "#{data[4]};#{data[3][13..-1].split('Member').first};#{data[3]}"
+      File.open("oksm.csv", "r") do |f|
+        f.each_line do |csv_line|
+          csv_data = csv_line.split(',')
+          if csv_data[1] == data[4]
+            countries << "#{data[4]};#{csv_data[2]};#{data[3]}"
+            break
+          end
+        end
+      end
     end
   end
 
