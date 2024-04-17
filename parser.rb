@@ -25,7 +25,7 @@ File.open(dm, 'r') do |file|
     when "Наименование по ОКАТО [List]"
       regions << "#{data[3][9..10]};#{data[4]};#{data[3][4..-1]}"
     when "Код документа удостоверяющего личность"
-      documents << "#{data[4]};#{data[3]}"
+      documents << "#{data[4].gsub(/"/, "")};#{data[3]}"
     when "[Справочник стран]"
       countries << "#{data[4]};#{data[3][13..-1].split('Member').first};#{data[3]}"
     end
