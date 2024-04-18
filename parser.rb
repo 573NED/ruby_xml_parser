@@ -26,6 +26,7 @@ File.open(dm, 'r') do |file|
     when "[Справочник стран]"
       File.open("oksm.csv", "r") do |f|
         f.each_line do |csv_line|
+          csv_line.gsub!(/\n/, '')
           csv_data = csv_line.split(',')
           if csv_data[1] == data[4]
             countries << "#{data[4]};#{csv_data[2]};#{data[3]}"
