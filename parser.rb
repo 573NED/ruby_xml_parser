@@ -20,7 +20,7 @@ File.open(dm, 'r') do |file|
 
     case data[1]
     when "Наименование по ОКАТО [List]"
-      regions << "#{data[3][9..10]};#{data[4]};#{data[3][4..-1]}"
+      regions << "#{data[3][9..10]};#{data[4].gsub(/"|\s+/, "")};#{data[3][4..-1]}"
     when "Код документа удостоверяющего личность"
       documents << "#{data[4].gsub(/"/, "")};#{data[3]}"
     when "[Справочник стран]"
