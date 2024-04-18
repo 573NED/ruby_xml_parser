@@ -4,9 +4,9 @@ documents_file = 'documents.csv'
 countries_file = 'countries.csv'
 
 def save_data(file_path, data_array)
-  data_array = data_array[1..-1]
+  Dir.mkdir("output") unless Dir.exist?("output")
 
-  File.open(file_path, 'w') do |file|
+  File.open("output/#{file_path}", 'w') do |file|
     data_array.each do |data|
       file.puts data
     end
@@ -39,7 +39,7 @@ File.open(dm, 'r') do |file|
     end
   end
 
-  save_data(regions_file, regions)
-  save_data(documents_file, documents)
+  save_data(regions_file, regions[1..-1])
+  save_data(documents_file, documents[1..-1])
   save_data(countries_file, countries)
 end
