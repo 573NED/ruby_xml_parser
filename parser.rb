@@ -1,7 +1,4 @@
 dm = 'data_model.csv'
-regions_file = 'regions.csv'
-documents_file = 'documents.csv'
-countries_file = 'countries.csv'
 
 def save_data(file_path, data_array)
   Dir.mkdir("output") unless Dir.exist?("output")
@@ -25,7 +22,7 @@ File.open(dm, 'r') do |file|
     when "Наименование по ОКАТО [List]"
       regions << "#{data[3][9..10]};#{data[4]};#{data[3][4..-1]}"
     when "Код документа удостоверяющего личность"
-      documents << "#{data[4]};#{data[3]}"
+      documents << "#{data[4].gsub(/"/, "")};#{data[3]}"
     when "[Справочник стран]"
       File.open("oksm.csv", "r") do |f|
         f.each_line do |csv_line|
@@ -39,7 +36,7 @@ File.open(dm, 'r') do |file|
     end
   end
 
-  save_data(regions_file, regions[1..-1])
-  save_data(documents_file, documents[1..-1])
-  save_data(countries_file, countries)
+  save_data('regions.csv', regions[1..-1])
+  save_data('documents.csv', documents[1..-1])
+  save_data('countries.csv', countries)
 end
